@@ -5,35 +5,141 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PE.js</title>
+    <link rel="stylesheet"
+    href="/E:/workstuff/bootstrap/bootstrap-4.4.1-dist/css/bootstrap.min.css">
 
     <style>
         body{
+            height:100%;
+        }
+     
+        .struct{
+            display: flex;
+            flex-direction: row;
+            align-content:stretch;
+            height: 100%;
+            
+        }
+       
+
+        .leftnav{                    
+            background-color:#343a40;
+            
+            margin-top: 0px;      
+            
+            
+        }
+
+
+        .content{
             display: flex;
             flex-direction: column;
-            justify-content:center;
-            align-items:center;
-            height:50vh;
             
+            padding: 15px;
+            align-items: center;    
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            background-color: #f1f1f1;
+            width: 100%;
+            height: 100%;         
+        }
 
+        .leftnav a {
+           
+            display: block;
+            color: beige;
+            padding: 16px;
+            text-decoration: none;
+        }
+
+        .leftnav a:hover:not(.active) {
+        background-color: #555;
+        color: black;
+        }
+
+
+        .liststyle{
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            
+            padding: 10px;
+            align-content: center;
+        }
+
+    
+       
+
+        .liststyle{
+
+            display: flex;
+            flex-direction: column;
+            
+            align-items: center;
+            margin: 20px;
+            padding: 10px;
+            align-content: center;
+        }
+
+        .t{
+            background-color: #c5c5c5;
+            border:whitesmoke;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            align-items: center;
+            margin: 20px;
+            padding: 10px;
+            align-content: center;
+            
         }
     </style>
 
 </head>
 
 <body>
-
-    <h1 this.style="text-align: center;"> Expense Tracker</h1>
-
     
-    <h3 id="headingTotal"></h3>
-    <list style="align-content: center;">
-    <div>Cost :        <input id="amt" type="text" placeholder="Enter amout" ></div>
+<div id= 'navbar' style="background-color: #343a40; color: beige;">
+         <h3 style="text-align: start;padding:14px ;margin-bottom: 1px;"> Expense Tracker</h3>
+</div>
 
-    <div>Description : <input id="des" placeholder="Enter Details" type="text"></div></list>
+
+
+
+<div class= "struct">
+    <div class="leftnav"> 
+        <list>
+        <a href="www.google.com" class= "liststyle2">Home</a>
+        <a class= "liststyle2">Account</a>
+        <a class= "liststyle2">About</a>
+        <a class= "liststyle2">Contact</a>
+    </list> 
+    </div>   
     
-    <button id="btn" style="font-size:larger;">Add</button>
-    <table id="allexpense"></table>
-    <div id= "displayTable"></div>
+
+        <div class="content">   
+
+         <h3 id="headingTotal"></h3>
+
+         <list>
+        
+              <div><input class= "liststyle" id="amt" type="text" placeholder="Enter amout" ></div>
+             <div><input class= "liststyle" id="des" placeholder="Enter description" type="text"></div>    
+         </list>
+
+                <button  id="btn" >Add</button>
+               <!-- <table class="liststyle2" id="allexpense"></table>-->
+
+
+
+                <div class="t" id= "displayTable"></div>
+                        
+
+        </div>           
+</div>
+
+
 
     <script>
         const headingEl= document.querySelector("#headingTotal");
@@ -76,7 +182,7 @@
         headingEl.textContent= outText;
 
         const TableHtml= allexpense.map(expense2 => {
-            return `<div>${expense2.cost}:: ${expense2.description}</div>`
+            return `<div>${expense2.cost}  :  ${expense2.description}</div>`
         }).join("");
 
 
@@ -84,25 +190,15 @@
 
         displaTableEL.innerHTML= TableHtml;
 
-        //console.clear();
-        //console.table(allexpense);
-
-        //inputElement= "";
-       // Inputdes = "";
-
+      
        Inputdes.value="";
        inputElement.value="";
         }
 
-        
-        
-        //get button link
-        //listen click
+                
        element.addEventListener("click",addExpense,false);
       
 
-    //   fucntion clear(){
-        
     //   }
 
         
