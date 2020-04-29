@@ -24,9 +24,9 @@
 
         .leftnav{                    
             background-color:#343a40;
-            
+            font-size: 12px;
             margin-top: 0px;      
-            
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
             
         }
 
@@ -67,14 +67,12 @@
             padding: 10px;
             align-content: center;
         }
-
-    
-       
-
+         
         .liststyle{
 
             display: flex;
             flex-direction: column;
+            font-size: 12px;
             
             align-items: center;
             margin: 20px;
@@ -83,24 +81,56 @@
         }
 
         .t{
-            background-color: #c5c5c5;
-            border:whitesmoke;
+            margin:10px;
+            margin-top: 30px;
+            
+            background-color:white;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            align-items: center;
-            margin: 20px;
-            padding: 10px;
-            align-content: center;
+            flex-flow: column;
+            
+            align-items: center;           
+            align-content: center;   
+            padding-left: 5px;
+            padding-right: 5px;
+            border-radius: 10px;
+          
+            border-style:solid;    
+            border-width: 0.1mm;       
+            border-color: #343a40;
+            
+            border-top:0;
+            border-bottom: 0;
+        }
+
+        th,td{  
+            padding-left: 15px;
+            padding-right: 15px;
+            background-color: white;
+            border-color:343a40;
+            width: 100%;
+            border-style:solid;
+            border-width: 0.1mm;
+            
+           
+            border-left:0;
+            border-right:0;
+            border-collapse: collapse;
+            font-size: 10px;
+          
             
         }
+
+
+       
     </style>
 
 </head>
 
 <body>
+   
     
-<div id= 'navbar' style="background-color: #343a40; color: beige;">
+<div id= 'navbar' style="background-color: #343a40;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); color: beige;">
          <h3 style="text-align: start;padding:14px ;margin-bottom: 1px;"> Expense Tracker</h3>
 </div>
 
@@ -120,7 +150,7 @@
 
         <div class="content">   
 
-         <h3 id="headingTotal"></h3>
+         <h5 id="headingTotal" style=" text-align: center;"></h5>
 
          <list>
         
@@ -129,15 +159,19 @@
          </list>
 
                 <button  id="btn" >Add</button>
-               <!-- <table class="liststyle2" id="allexpense"></table>-->
+               
 
+               
+                <table id="displayTable" class="t"></table>
+        <!-- <table class="liststyle2" id="allexpense"></table>
+                <table class="t" id= "displayTable"></table> -->
 
-
-                <div class="t" id= "displayTable"></div>
+            
                         
 
         </div>           
 </div>
+
 
 
 
@@ -148,9 +182,11 @@
         const inputElement= document.querySelector("#amt");
         const element = document.querySelector("#btn");
         const displaTableEL = document.querySelector("#displayTable");
+        const removeitem=document.querySelector("#b");
 
         let TotalExpense= 0;
-
+        var countermain;
+         countermain=-1;
         //set it to TotalExpense i.e init 0
 
         headingEl.textContent= TotalExpense;
@@ -163,27 +199,39 @@
         const expense= parseInt(textAmount,10);
 
         const textdes=Inputdes.value;           //catch text
-        console.log({expense,textdes});         //console print obj
-         
-
-            Expenseobj = {}
+       // console.log({expense,textdes});         //console print obj
+         Expenseobj = {}
 
             Expenseobj.description=textdes;
             Expenseobj.cost= expense;
+            Expenseobj.moment= new Date();
+            const options= {month:'short',day:'numeric'};
+            const options2= {hour: '2-digit', minute:'2-digit', hour12: false};
             allexpense.push(Expenseobj)
 
 
-
+        
+    
         TotalExpense = TotalExpense+ expense
+        countermain++;
+        console.log({allexpense});
         console.log({TotalExpense});
+        console.log(countermain);
 
 
         const outText = `The Total expense Of this month is: ${TotalExpense}`
         headingEl.textContent= outText;
 
         const TableHtml= allexpense.map(expense2 => {
-            return `<div>${expense2.cost}  :  ${expense2.description}</div>`
-        }).join("");
+         
+        
+        return`<tr><td><div>${expense2.moment.toLocaleDateString('en-US',options)}
+        -${expense2.moment.toLocaleTimeString('en-US',options2)}</div></td>
+        <td>${expense2.description}</td> 
+        <td>${expense2.cost}</td> 
+        <td><button  id="b">X</button></td></tr>`
+
+                     }).join("");
 
 
         console.log(TableHtml);
@@ -195,8 +243,18 @@
        inputElement.value="";
         }
 
+
+       function delitem(){
+
+            console.log("deletecall");
+        }
+
+
+
+        element.addEventListener("click",addExpense,false);
+        removeitem.addEventListener("click",delitem,false);
                 
-       element.addEventListener("click",addExpense,false);
+    
       
 
     //   }
