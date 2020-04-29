@@ -182,8 +182,32 @@
 
         allexpense= [];
 
-        function addExpense(){
         
+        
+
+        
+            function validateForm() {
+            var x = document.querySelector("#amt").value;
+            var y = document.querySelector("#des").value;
+            var regex=/^[0-9]+$/;
+    
+            console.log(x);
+           
+            if (x == "" ||y=="") {
+                alert("Amount and Name must be filled");
+                
+                return false;
+            
+            }else if (!x.match(regex)){alert("Enter Amount");
+
+            return false;
+        }
+
+            else addExpense()
+            } 
+
+            function addExpense(){
+
         const textAmount = inputElement.value;   //catch integer
         const expense= parseInt(textAmount,10);
 
@@ -240,7 +264,7 @@
 
 
 
-        element.addEventListener("click",addExpense,false);
+        element.addEventListener("click",validateForm,false);
         removeitem.addEventListener("click",delitem,false);
                 
     
